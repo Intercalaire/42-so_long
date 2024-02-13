@@ -14,7 +14,6 @@
 
 void init_game(t_game *game, char *file_name)
 {
-    game->map.full = 0;
     game->map.rows = 0;
     game->map.columns = 0;
     game->map.collectible = 0;
@@ -45,6 +44,7 @@ int key_hook(int key, void* param)
      //   mlx_mouse_hide(param);
     return (0);
 }
+//int mlx_hook(void *win_ptr, int x_event, int x_mask, int (*funct)(), void *param);
 
 /*0 is when we trigger the close of the window (by clicking the cross for example)*/
 int window_hook(int event, void* param)

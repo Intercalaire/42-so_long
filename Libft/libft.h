@@ -21,8 +21,6 @@
 #  define BUFFER_SIZE 42
 # endif
 
-
-
 typedef struct s_list
 {
 	void			*content;
@@ -55,9 +53,9 @@ void	*ft_calloc( size_t nmemb, size_t size);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *s1, const char *s2);
-int	ft_putchar_fd(char c, int fd);
-int	ft_putstr_fd(char *s, int fd);
-int	ft_putnbr_fd(int n, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd(char *s, int fd);
+int		ft_putnbr_fd(int n, int fd);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);

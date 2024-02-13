@@ -46,7 +46,9 @@ int	ft_printf(const char *sign, ...)
 	len = 0;
 	len_sign = 0;
 	va_start(args, sign);
-	while (sign[i]) 
+	if (!sign)
+		return (-1);
+	while (sign[i])
 	{
 		if (sign[i] != '%')
 		{
@@ -54,9 +56,7 @@ int	ft_printf(const char *sign, ...)
 			ft_putchar_fd(sign[i], 1);
 		}
 		else
-		{
 			len += known_the_sign(sign[++i], args);
-		}
 		i++;
 	}
 	len = len + len_sign;

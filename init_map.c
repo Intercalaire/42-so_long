@@ -62,6 +62,19 @@ int init_map(t_game *game, char *file_name)
 	return (0);
 }
 
+void clear_map(t_game *game)
+{
+	int i;
+
+	i = 0;
+	while (i < game->map.rows)
+	{
+		free(game->map.full[i]);
+		i++;
+	}
+	free(game->map.full);
+}
+
 int row_count(t_game *game, char *file_name)
 {
 	int i;
@@ -90,6 +103,15 @@ void how_many_inside(t_game *game, char *line)
 			game->map.exit++;
 		if (line[i] == COLLECTIBLE)
 			game->map.collectible++;
+		else if (line[i] == '1' || line[i] == '0')
+		return ;
+		else
+		{
+			free(line);
+			game->map.player++;
+			ft_printf("%s", "map content is invalid");
+			break ;
+		}
 		i++;
 	}
 }
