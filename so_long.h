@@ -39,10 +39,21 @@ typedef struct s_map
 	t_position	position;
 }	t_map;
 
+typedef struct s_texture
+{
+	void	*wall;
+	void	*collectible;
+	void	*exit;
+	void	*player;
+	void	*background;
+}				t_texture;
+
+
 typedef struct s_game
 {
-	void* mlx;
-	void* param;
+	void	*mlx;
+	void	*mlx_win;
+	void	*param;
 	int key;
 	int	player_up;
 	int	player_down;
@@ -52,6 +63,7 @@ typedef struct s_game
 	int img_height;
 	t_position	position;
 	t_map	map;
+	t_texture			*texture;
 }	t_game;
 
 int key_hook(int key, void* param);
@@ -66,9 +78,10 @@ int parsing(t_game *game);
 void	how_many_inside(t_game *game, char *line);
 int	init_map(t_game *game, char *file_name);
 int	row_count(t_game *game, char *file_name);
-
-
-
+void error_message(char *msg, t_game *game);
+int extention_file(t_game *game, char *file_name);
+void clear_map(t_game *game);
+void	data_clear(t_game *game);
 
 // GAME OBJECTS KEYS
 # define Player 'P'

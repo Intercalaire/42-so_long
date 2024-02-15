@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 MACROLIBX = MacroLibX/libmlx.so -lSDL2
 MACROLIBX_PATH = MacroLibX
 Libft_PATH =	Libft
@@ -20,6 +20,7 @@ SRC = so_long.c \
 	so_long_utils.c \
 	map_verif.c \
 	init_map.c \
+	data_clear.c \
 	
 
 OBJ = $(SRC:.c=.o)

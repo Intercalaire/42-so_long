@@ -29,7 +29,7 @@ void init_game(t_game *game, char *file_name)
     game->img_height = 0;
     if (!file_name)
     {
-        ft_printf("%s", "Error\nThe Map");
+        error_message("Error\nThe Map", game);
         return ;
     }
     game->mlx = 0;
@@ -44,7 +44,21 @@ int key_hook(int key, void* param)
      //   mlx_mouse_hide(param);
     return (0);
 }
-//int mlx_hook(void *win_ptr, int x_event, int x_mask, int (*funct)(), void *param);
+
+char	*ft_strappend(char **s1, const char *s2)
+{
+	char	*str;
+
+	if (!*s1 || !s2)
+		return (NULL);
+	str = (char *)ft_calloc((ft_strlen(*s1) + ft_strlen(s2)) + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, *s1, ft_strlen(*s1) + 1);
+	ft_strlcat(str, s2, ft_strlen(*s1) + ft_strlen(s2) + 1);
+	free(*s1);
+	return (str);
+}
 
 /*0 is when we trigger the close of the window (by clicking the cross for example)*/
 int window_hook(int event, void* param)

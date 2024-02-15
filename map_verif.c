@@ -31,13 +31,11 @@ int	check_rows(t_game *game)
 	{
 		if (game->map.full[x][0] != WALL)
 		{
-			ft_printf("%s", "Error\nThe Map must be surrounded by walls");
-			return (1);
+			error_message("Error\nThe Map must be surrounded by walls", game);
 		}
 		else if (game->map.full[x][game->map.columns - 1] != WALL)
 		{
-			ft_printf("%s", "Error\nThe Map must be surrounded by walls");
-			return (1);
+			error_message("Error\nThe Map must be surrounded by walls", game);
 		}
 		x++;
 	}
@@ -53,12 +51,12 @@ int	check_columns(t_game *game)
 	{
 		if (game->map.full[0][y] != WALL)
 		{
-			ft_printf("%s", "Error\nThe Map must be surrounded by walls");
+			error_message("Error\nThe Map must be surrounded by walls", game);
 			return (1);
 		}
 		else if (game->map.full[game->map.rows - 1][y] != WALL)
 		{
-			ft_printf("%s", "Error\nThe Map must be surrounded by walls");
+			error_message("Error\nThe Map must be surrounded by walls", game);
 			return (1);
 		}
 		y++;
@@ -70,19 +68,15 @@ int	verification_CEP(t_game *game)
 {
 	if (game->map.collectible == 0)
 	{
-		ft_printf("%d", game->map.collectible);
-		ft_printf("%s", "Error\nto low collectible");
-		return (1);
+		error_message("Error\nto low collectible", game);
 	}
 	else if (game->map.exit != 1)
 	{
-		ft_printf("%s", "Error\nthere is no one exit");
-		return (1);
+		error_message("Error\nthere is no one exit", game);
 	}
 	else if (game->map.player != 1)
 	{
-		ft_printf("%s", "Error\nthere is one player");
-		return (1);
+		error_message("Error\nthere is one player", game);
 	}
 
 	return (0);

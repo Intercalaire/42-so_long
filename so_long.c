@@ -12,6 +12,13 @@
 
 #include "so_long.h"
 
+void	error_message(char *msg, t_game *game)
+{
+	ft_printf("%s", msg);
+	data_clear(game);
+	exit(0);
+}
+
 int main(int argc, char **argv)
 {
     t_game  *game;
