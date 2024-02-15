@@ -14,8 +14,8 @@ CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 MACROLIBX = MacroLibX/libmlx.so -lSDL2
 MACROLIBX_PATH = MacroLibX
-Libft_PATH =	Libft
-Libft_FILE	=	Libft/Libft.a
+Libft_PATH = Libft
+Libft_FILE = Libft/Libft.a
 SRC = so_long.c \
 	so_long_utils.c \
 	map_verif.c \
