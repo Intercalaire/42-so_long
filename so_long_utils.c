@@ -27,11 +27,16 @@ void init_game(t_game *game, char *file_name)
     game->player_right = 0;
     game->img_width = 0;
     game->img_height = 0;
+    game->texture->collectible = (t_texture *)NULL;
+    game->texture->exit = (t_texture *)NULL;
+    game->texture->player = (t_texture *)NULL;
+    game->texture->background = (t_texture *)NULL;
     if (!file_name)
     {
         error_message("Error\nThe Map", game);
         return ;
     }
+    game->mlx_win = 0;
     game->mlx = 0;
 }
 

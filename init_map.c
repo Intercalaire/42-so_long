@@ -33,36 +33,42 @@ int extention_file(t_game *game, char *file_name)
 int init_map(t_game *game, char *file_name)
 {
 	int fd;
-	unsigned int len_line;
+	int size;
+	//unsigned int len_line;
 	char *line;
 
-	game->map.full = (char **)malloc(sizeof(char *) * (9999));
-	if (!game->map.full)
-		return (0);
+	if (game == NULL)
+		error_message("Error\ngame or game->map is NULL", game);
 	extention_file(game, file_name);
 	fd = open(file_name, O_RDONLY);
-	len_line = row_count(game, file_name);
+	//len_line = row_count(game, file_name);
+	size = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
-		if (ft_strlen(line) != len_line)
+		if (!line)
+			error_message("Error\ncompilation map", game);
+		/*if (ft_strlen(line) != len_line)
 		{
 			error_message("Error\nnot rectangulare", game);
-		}
-		if (!line)
-			return (0);
+		}*/
 		if (line[0] == '\n')
 		{
 			error_message("Error\nInvalid map, empty line", game);
 		}
 		how_many_inside(game, line);
 		game->map.rows++;
+		size += ft_strlen(line);
 		free(line);
 	}
+	game->map.full = (char **)malloc(sizeof(char *) * size);
+	if (!game->map.full)
+		return (0);
 	game->map.full = &file_name;
+	printf("%s", *game->map.full);
 	return (0);
 }
-
+/*
 int row_count(t_game *game, char *file_name)
 {
 	int count;
@@ -75,7 +81,8 @@ int row_count(t_game *game, char *file_name)
 	{
 		error_message("Error\nFailed to open file", game);
 	}
-
+	if (game == NULL)
+		error_message("Error\ngame or game->map is NULL", game);
 	while (read(fd, &c, 1) > 0)
 	{
 		if (c == '\n')
@@ -83,10 +90,9 @@ int row_count(t_game *game, char *file_name)
 		count++;
 		game->map.columns++;
 	}
-
 	close(fd);
 	return (count);
-}
+}*/
 
 void how_many_inside(t_game *game, char *line)
 {

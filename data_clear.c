@@ -18,12 +18,15 @@ static void	game_destroy(t_game *game)
 	int i;
 
 	i = 0;
-	while (i < game->map.rows)
+	if (game != 0)
 	{
-		free(game->map.full[i]);
-		i++;
+		while (i < game->map.rows)
+		{
+			free(game->map.full[i]);
+			i++;
+		}
+		free(game->map.full);
 	}
-	free(game->map.full);
 }
 
 void	data_clear(t_game *game)
@@ -44,7 +47,7 @@ void	data_clear(t_game *game)
 			mlx_destroy_display(game->mlx);
 			free(game->mlx);
 		}
-		if (game != 0)
+		if (game != 0 || game->map.full != 0)
 			game_destroy(game);
 		free(game);
 	}

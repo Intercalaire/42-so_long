@@ -51,3 +51,12 @@ int main(int argc, char **argv)
     mlx_destroy_window(mlx, win);
     mlx_destroy_display(mlx);
 }
+
+void	load_textures(t_texture *texture, t_data *data)
+{
+	int	*x;
+	int	*y;
+
+    x = malloc(sizeof(int));
+	y = malloc(sizeof(int));
+}
