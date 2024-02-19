@@ -46,6 +46,7 @@ void	data_clear(t_game *game)
 			mlx_destroy_window(game->mlx, game->mlx_win);
 			mlx_destroy_display(game->mlx);
 			free(game->mlx);
+			free(game->texture);
 		}
 		if (game != 0 || game->map.full != 0)
 			game_destroy(game);

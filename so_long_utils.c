@@ -27,10 +27,6 @@ void init_game(t_game *game, char *file_name)
     game->player_right = 0;
     game->img_width = 0;
     game->img_height = 0;
-    game->texture->collectible = (t_texture *)NULL;
-    game->texture->exit = (t_texture *)NULL;
-    game->texture->player = (t_texture *)NULL;
-    game->texture->background = (t_texture *)NULL;
     if (!file_name)
     {
         error_message("Error\nThe Map", game);
@@ -73,14 +69,8 @@ int window_hook(int event, void* param)
     return (0);
 }
 
-int img_banner(void* mlx, void* win, int img_width, int img_height)
+void	initialize_img(t_game *game, t_texture *texture)
 {
-    void* img = mlx_png_file_to_image(mlx, "assets/textures/background/banner/Banner_Vertical.png", &img_width, &img_height);
-    mlx_put_image_to_window(mlx, win, img, 15, 1);
-    mlx_string_put(mlx, win, 150, 10, 0xFFFFFFFF, "this is my text");
-
-    
-    mlx_loop(mlx);
-    mlx_destroy_image(mlx, img);
-    return (0);
+    game->texture = texture;
+    load_textures(texture, game);
 }

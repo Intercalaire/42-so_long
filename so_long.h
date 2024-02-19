@@ -69,7 +69,7 @@ typedef struct s_game
 int key_hook(int key, void* param);
 int window_hook(int event, void* param);
 int image_moove(int key, void* param);
-int img_banner(void* mlx, void* win, int img_width, int img_height);
+void	initialize_img(t_game *game, t_texture *texture);
 void init_game(t_game *game, char *file_name);
 int	verification_CEP(t_game *game);
 int	check_rows(t_game *game);
@@ -82,6 +82,7 @@ void error_message(char *msg, t_game *game);
 int extention_file(t_game *game, char *file_name);
 void clear_map(t_game *game);
 void	data_clear(t_game *game);
+void	load_textures(t_texture *texture, t_game *game);
 
 // GAME OBJECTS KEYS
 # define Player 'P'
