@@ -21,6 +21,7 @@ SRC = so_long.c \
 	map_verif.c \
 	init_map.c \
 	data_clear.c \
+	put_textures.c \
 	
 
 OBJ = $(SRC:.c=.o)

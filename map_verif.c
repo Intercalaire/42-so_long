@@ -31,15 +31,15 @@ int	check_rows(t_game *game)
 	{
 		if (game->map.full[x][0] != WALL)
 		{
-			error_message("Error\nThe Map must be surrounded by walls", game);
+			error_message("Error\nThe Map must be surrounded by walls1", game);
 		}
 		else if (game->map.full[x][game->map.columns - 1] != WALL)
 		{
-			error_message("Error\nThe Map must be surrounded by walls", game);
+			error_message("Error\nThe Map must be surrounded by walls2", game);
 		}
 		x++;
 	}
-	return (0);
+	return (1);
 }
 
 int	check_columns(t_game *game)
@@ -51,17 +51,17 @@ int	check_columns(t_game *game)
 	{
 		if (game->map.full[0][y] != WALL)
 		{
-			error_message("Error\nThe Map must be surrounded by walls", game);
+			error_message("Error\nThe Map must be surrounded by walls3", game);
 			return (1);
 		}
 		else if (game->map.full[game->map.rows - 1][y] != WALL)
 		{
-			error_message("Error\nThe Map must be surrounded by walls", game);
+			error_message("Error\nThe Map must be surrounded by walls4", game);
 			return (1);
 		}
 		y++;
 	}
-	return (0);
+	return (1);
 }
 
 int	verification_CEP(t_game *game)
@@ -79,5 +79,5 @@ int	verification_CEP(t_game *game)
 		error_message("Error\nthere is one player", game);
 	}
 
-	return (0);
+	return (1);
 }

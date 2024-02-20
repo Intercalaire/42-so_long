@@ -30,76 +30,107 @@ int extention_file(t_game *game, char *file_name)
 	return (1);
 }
 
-int init_map(t_game *game, char *file_name)
+char **init_map(t_game *game, char *file_name)
 {
 	int fd;
-	int size;
-	//unsigned int len_line;
+	unsigned int len_line;
 	char *line;
+	int i;
 
-	if (game == NULL)
+	if (game == NULL || file_name == NULL)
 		error_message("Error\ngame or game->map is NULL", game);
 	extention_file(game, file_name);
 	fd = open(file_name, O_RDONLY);
-	//len_line = row_count(game, file_name);
-	size = 0;
-	while (1)
+	if (fd == -1)
+		error_message("Error\nFailed to open file", game);
+	game->map.full = (char **)malloc(sizeof(char *) * (get_columns(game) + 1)); // changer le malloc avec le nbr de collone, mais reussir a choper le nombre de collone
+	if (!game->map.full)
+		return (0);
+	len_line = row_count(game, file_name);
+	i = 0;
+	line = "";
+	while (line != NULL)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			error_message("Error\ncompilation map", game);
-		/*if (ft_strlen(line) != len_line)
+			break;
+		if (ft_strlen(line) != len_line)
 		{
 			error_message("Error\nnot rectangulare", game);
-		}*/
+		}
 		if (line[0] == '\n')
 		{
 			error_message("Error\nInvalid map, empty line", game);
 		}
 		how_many_inside(game, line);
 		game->map.rows++;
-		size += ft_strlen(line);
+		game->map.full[i] = ft_strdup(line);
+		i++;
 		free(line);
 	}
-	game->map.full = (char **)malloc(sizeof(char *) * size);
-	if (!game->map.full)
-		return (0);
-	game->map.full = &file_name;
-	printf("%s", *game->map.full);
-	return (0);
+	game->map.full[i] = NULL;
+	close(fd);
+	return (game->map.full);
 }
-/*
+
 int row_count(t_game *game, char *file_name)
 {
 	int count;
-	int fd;	
-	char c;
+	int fd;
+	char *line;
+	int i;
 
 	fd = open(file_name, O_RDONLY);
 	count = 0;
+	i = 0;
+	line = get_next_line(fd);
 	if (fd == -1)
 	{
 		error_message("Error\nFailed to open file", game);
 	}
-	if (game == NULL)
-		error_message("Error\ngame or game->map is NULL", game);
-	while (read(fd, &c, 1) > 0)
+	while(line[i])
 	{
-		if (c == '\n')
-			break;
+		i++;
 		count++;
-		game->map.columns++;
 	}
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
 	close(fd);
 	return (count);
-}*/
+}
+
+int	get_columns(t_game *game)
+{
+	int i;
+
+	i = 0;
+	while (game->map.full[i])
+		i++;
+	ft_printf("columns = %d\n", i);
+	return (i);
+}
+
+int	get_row(t_game *game)
+{
+	int i;
+
+	i = 0;
+	while (game->map.full[0][i])
+		i++;
+	ft_printf("Row = %d\n", i);
+	return (i);
+}
+
 
 void how_many_inside(t_game *game, char *line)
 {
 	int i;
 
 	i = 0;
-	// ft_printf("%s", line);
 	while (line[i])
 	{
 		if (line[i] == Player)

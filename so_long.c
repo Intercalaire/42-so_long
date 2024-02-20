@@ -33,10 +33,8 @@ int main(int argc, char **argv)
     game = malloc(sizeof(t_game));
     init_game(game, argv[1]);
     game->mlx = mlx_init();
-    void* win = mlx_new_window(game->mlx, 500, 400, "Hello world!");
+    game->win = mlx_new_window(game->mlx, 500, 400, "Hello world!");
     initialize_img(game, texture);
-    if (init_map(game, argv[1]) == 1)
-        return (1);
     if (parsing(game) == 1)
         return (0);
 
@@ -45,11 +43,20 @@ int main(int argc, char **argv)
 
     img_width = 150;
     img_height = 10;
-    mlx_on_event(game->mlx, win, MLX_KEYDOWN, key_hook, game->mlx);
-    mlx_on_event(game->mlx, win, MLX_WINDOW_EVENT, window_hook, game->mlx);
+    mlx_on_event(game->mlx, game->win, MLX_KEYDOWN, key_hook, game->mlx);
+    mlx_on_event(game->mlx, game->win, MLX_WINDOW_EVENT, window_hook, game->mlx);
     mlx_loop(game->mlx);
 
     // do not forget to destroy the image, otherwise the MacroLibX will yell at you !
+}
+
+void	put_all_textures(t_texture *texture, t_game *game)
+{
+	put_backgrounds(texture, game);
+	put_walls(texture, game);
+	put_collectibles(texture, game);
+	put_exit(texture, game);
+	put_player(texture, game);
 }
 
 void	load_textures(t_texture *texture, t_game *game)

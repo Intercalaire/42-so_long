@@ -14,8 +14,6 @@
 
 void init_game(t_game *game, char *file_name)
 {
-    game->map.rows = 0;
-    game->map.columns = 0;
     game->map.collectible = 0;
     game->map.exit = 0;
     game->map.player = 0;
@@ -27,20 +25,22 @@ void init_game(t_game *game, char *file_name)
     game->player_right = 0;
     game->img_width = 0;
     game->img_height = 0;
-    if (!file_name)
-    {
-        error_message("Error\nThe Map", game);
-        return ;
-    }
-    game->mlx_win = 0;
+    game->map.full = init_map(game, file_name);
+    game->map.columns = get_columns(game);
+    game->map.rows = get_row(game);
+    game->win = 0;
     game->mlx = 0;
+
 }
 
 /*close the window with the escape button 41 = escape*/
 int key_hook(int key, void* param)
 {
+    t_game *game;
+
+    game = (t_game *)param;
     if(key == ESC)
-        mlx_mouse_hide(param);
+        mlx_loop_end(param);
     //if(key == 4) // 4 = a
      //   mlx_mouse_hide(param);
     return (0);
@@ -73,4 +73,5 @@ void	initialize_img(t_game *game, t_texture *texture)
 {
     game->texture = texture;
     load_textures(texture, game);
+    put_all_textures(texture, game);
 }

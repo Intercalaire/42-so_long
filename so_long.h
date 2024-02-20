@@ -52,7 +52,7 @@ typedef struct s_texture
 typedef struct s_game
 {
 	void	*mlx;
-	void	*mlx_win;
+	void	*win;
 	void	*param;
 	int key;
 	int	player_up;
@@ -76,13 +76,22 @@ int	check_rows(t_game *game);
 int	check_columns(t_game *game);
 int parsing(t_game *game);
 void	how_many_inside(t_game *game, char *line);
-int	init_map(t_game *game, char *file_name);
+char	**init_map(t_game *game, char *file_name);
 int	row_count(t_game *game, char *file_name);
 void error_message(char *msg, t_game *game);
 int extention_file(t_game *game, char *file_name);
 void clear_map(t_game *game);
 void	data_clear(t_game *game);
 void	load_textures(t_texture *texture, t_game *game);
+void	exit_game(t_game *game);
+void	put_walls(t_texture *texture, t_game *game);
+void	put_collectibles(t_texture *texture, t_game *game);
+void	put_exit(t_texture *texture, t_game *game);
+void	put_player(t_texture *texture, t_game *game);
+void	put_backgrounds(t_texture *texture, t_game *game);
+void	put_all_textures(t_texture *texture, t_game *game);
+int	get_columns(t_game *game);
+int	get_row(t_game *game);
 
 // GAME OBJECTS KEYS
 # define Player 'P'
