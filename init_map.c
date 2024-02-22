@@ -15,13 +15,16 @@
 /*initialiser la map, */
 
 /*look the extention_file if this is a .ber*/
-int extention_file(t_game *game, char *file_name)
+int extension_file(t_game *game, char *file_name)
 {
 	char *extension;
 	extension = ft_strrchr(file_name, '.');
 
 	if (!extension || ft_strlen(extension) != 4)
+	{
+		error_message("Error\nInvalid map, not a .ber file", game);
 		return (1);
+	}
 	if ((extension[0] == '.') && (extension[1] == 'b') && (extension[2] == 'e') && (extension[3] == 'r'))
 	{
 		return (0);
@@ -39,11 +42,11 @@ char **init_map(t_game *game, char *file_name)
 
 	if (game == NULL || file_name == NULL)
 		error_message("Error\ngame or game->map is NULL", game);
-	extention_file(game, file_name);
+	extension_file(game, file_name);
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		error_message("Error\nFailed to open file", game);
-	game->map.full = (char **)malloc(sizeof(char *) * (get_columns(game) + 1)); // changer le malloc avec le nbr de collone, mais reussir a choper le nombre de collone
+	game->map.full = (char **)malloc(sizeof(char *) * (columns_count(game, file_name) - 1)); // changer le malloc avec le nbr de collone, mais reussir a choper le nombre de collone
 	if (!game->map.full)
 		return (0);
 	len_line = row_count(game, file_name);
@@ -103,28 +106,29 @@ int row_count(t_game *game, char *file_name)
 	return (count);
 }
 
-int	get_columns(t_game *game)
+int columns_count(t_game *game, char *file_name)
 {
-	int i;
+	int count;
+	int fd;
+	char *line;
 
-	i = 0;
-	while (game->map.full[i])
-		i++;
-	ft_printf("columns = %d\n", i);
-	return (i);
+	fd = open(file_name, O_RDONLY);
+	count = 0;
+	line = get_next_line(fd);
+	if (fd == -1)
+	{
+		error_message("Error\nFailed to open file", game);
+	}
+	while (line)
+	{
+		count++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
+	return (count);
 }
-
-int	get_row(t_game *game)
-{
-	int i;
-
-	i = 0;
-	while (game->map.full[0][i])
-		i++;
-	ft_printf("Row = %d\n", i);
-	return (i);
-}
-
 
 void how_many_inside(t_game *game, char *line)
 {

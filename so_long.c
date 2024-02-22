@@ -14,8 +14,10 @@
 
 void	error_message(char *msg, t_game *game)
 {
+	(void) game;
 	ft_printf("%s", msg);
-	data_clear(game);
+	free(game->texture);
+	free(game);
 	exit(0);
 }
 
@@ -29,8 +31,9 @@ int main(int argc, char **argv)
 		ft_printf("%s", "Error\nThis programe take 1 argument .ber");
 		return (0);
 	}
-    texture = malloc(sizeof(t_texture));
     game = malloc(sizeof(t_game));
+    texture = malloc(sizeof(t_texture));
+    game->texture = texture;
     init_game(game, argv[1]);
     game->mlx = mlx_init();
     game->win = mlx_new_window(game->mlx, 500, 400, "Hello world!");

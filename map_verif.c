@@ -29,6 +29,10 @@ int	check_rows(t_game *game)
 	x = 0;
 	while (x < game->map.rows)
 	{
+		ft_printf("x = %d\n", x);
+		ft_printf("game->map.rows = %d\n", game->map.rows);
+		ft_printf("|ligne| %s\n", game->map.full[x]);
+		ft_printf("|lignefin| %c\n", game->map.full[x][game->map.columns - 1]);
 		if (game->map.full[x][0] != WALL)
 		{
 			error_message("Error\nThe Map must be surrounded by walls1", game);
@@ -39,7 +43,7 @@ int	check_rows(t_game *game)
 		}
 		x++;
 	}
-	return (1);
+	return (0);
 }
 
 int	check_columns(t_game *game)
@@ -49,6 +53,8 @@ int	check_columns(t_game *game)
 	y = 0;
 	while (y < game->map.columns)
 	{
+		ft_printf("|collone| %d\n", game->map.full[0][y]);
+		ft_printf("|collonefin| %d\n", game->map.full[game->map.rows - 1][y]);
 		if (game->map.full[0][y] != WALL)
 		{
 			error_message("Error\nThe Map must be surrounded by walls3", game);
@@ -61,7 +67,7 @@ int	check_columns(t_game *game)
 		}
 		y++;
 	}
-	return (1);
+	return (0);
 }
 
 int	verification_CEP(t_game *game)

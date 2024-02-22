@@ -79,7 +79,7 @@ void	how_many_inside(t_game *game, char *line);
 char	**init_map(t_game *game, char *file_name);
 int	row_count(t_game *game, char *file_name);
 void error_message(char *msg, t_game *game);
-int extention_file(t_game *game, char *file_name);
+int extension_file(t_game *game, char *file_name);
 void clear_map(t_game *game);
 void	data_clear(t_game *game);
 void	load_textures(t_texture *texture, t_game *game);
@@ -90,8 +90,7 @@ void	put_exit(t_texture *texture, t_game *game);
 void	put_player(t_texture *texture, t_game *game);
 void	put_backgrounds(t_texture *texture, t_game *game);
 void	put_all_textures(t_texture *texture, t_game *game);
-int	get_columns(t_game *game);
-int	get_row(t_game *game);
+int columns_count(t_game *game, char *file_name);
 
 // GAME OBJECTS KEYS
 # define Player 'P'

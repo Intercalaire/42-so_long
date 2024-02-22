@@ -26,8 +26,10 @@ void init_game(t_game *game, char *file_name)
     game->img_width = 0;
     game->img_height = 0;
     game->map.full = init_map(game, file_name);
-    game->map.columns = get_columns(game);
-    game->map.rows = get_row(game);
+    game->map.columns = ft_strlen(game->map.full[0]) - 1;
+    game->map.rows = columns_count(game, file_name);
+    ft_printf("colums = %d\n", game->map.columns);
+    ft_printf("rows = %d\n", game->map.rows);
     game->win = 0;
     game->mlx = 0;
 
@@ -46,21 +48,6 @@ int key_hook(int key, void* param)
     return (0);
 }
 
-char	*ft_strappend(char **s1, const char *s2)
-{
-	char	*str;
-
-	if (!*s1 || !s2)
-		return (NULL);
-	str = (char *)ft_calloc((ft_strlen(*s1) + ft_strlen(s2)) + 1, sizeof(char));
-	if (!str)
-		return (NULL);
-	ft_strlcpy(str, *s1, ft_strlen(*s1) + 1);
-	ft_strlcat(str, s2, ft_strlen(*s1) + ft_strlen(s2) + 1);
-	free(*s1);
-	return (str);
-}
-
 /*0 is when we trigger the close of the window (by clicking the cross for example)*/
 int window_hook(int event, void* param)
 {
@@ -71,7 +58,6 @@ int window_hook(int event, void* param)
 
 void	initialize_img(t_game *game, t_texture *texture)
 {
-    game->texture = texture;
     load_textures(texture, game);
     put_all_textures(texture, game);
 }
